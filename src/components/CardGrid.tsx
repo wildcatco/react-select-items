@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Card from './Card';
 import styles from './CardGrid.module.css';
-import { SelectArea, Selectable } from './react-select-items';
+import { SelectArea, Selectable } from '../lib';
 
 export default function CardGrid() {
   const [selectedCardIndexes, setSelectedCardIndexes] = useState<number[]>([]);

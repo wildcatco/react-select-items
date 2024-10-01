@@ -1,1 +1,1 @@
-export { SelectArea, Selectable } from './components/react-select-items';
+export { SelectArea, Selectable } from './lib';
