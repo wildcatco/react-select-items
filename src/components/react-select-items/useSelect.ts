@@ -21,10 +21,20 @@ export default function useSelect() {
     );
   };
 
-  const selectRange = (startIndex: number, endIndex: number) => {
-    const indexesToSelect: number[] = [];
+  const selectRange = ({
+    startIndex,
+    endIndex,
+    append,
+  }: {
+    startIndex: number;
+    endIndex: number;
+    append: boolean;
+  }) => {
+    const indexesToSelect: number[] = append ? [...selectedIndexes] : [];
     for (let i = startIndex; i <= endIndex; i++) {
-      indexesToSelect.push(i);
+      if (!indexesToSelect.includes(i)) {
+        indexesToSelect.push(i);
+      }
     }
     setSelectedIndexes(indexesToSelect);
   };
