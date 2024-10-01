@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { isDraggingState } from './states';
 
-export default function useDragSelect() {
+export default function useDragSelect({ useShift }: { useShift: boolean }) {
   const [isDragging, setIsDragging] = useRecoilState(isDraggingState);
   const [dragStartPoint, setDragStartPoint] = useState<{
     x: number;
@@ -22,6 +22,7 @@ export default function useDragSelect() {
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
+      if (useShift && !e.shiftKey) return;
       if (!isDragging || !dragStartPoint || !rectRef.current) return;
 
       const dragEndPoint = {

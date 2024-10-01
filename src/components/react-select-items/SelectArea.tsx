@@ -14,6 +14,7 @@ export default function SelectArea({
   useShift = true,
   useCtrlShift = true,
   useDrag = true,
+  useShiftToDrag = false,
   onSelect,
   onUnselect,
   onFocus,
@@ -26,6 +27,7 @@ export default function SelectArea({
         useShift={useShift}
         useCtrlShift={useCtrlShift}
         useDrag={useDrag}
+        useShiftToDrag={useShiftToDrag}
         onSelect={onSelect}
         onUnselect={onUnselect}
         onFocus={onFocus}

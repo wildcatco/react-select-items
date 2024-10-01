@@ -18,6 +18,7 @@ export const selectionOptionsState = atom<SelectionOptions>({
     useShift: true,
     useCtrlShift: true,
     useDrag: true,
+    useShiftToDrag: true,
   },
 });
 

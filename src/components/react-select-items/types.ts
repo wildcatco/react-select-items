@@ -3,4 +3,5 @@ export type SelectionOptions = {
   useShift?: boolean;
   useCtrlShift?: boolean;
   useDrag?: boolean;
+  useShiftToDrag?: boolean;
 };

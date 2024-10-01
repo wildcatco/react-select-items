@@ -14,6 +14,7 @@ interface SelectHooksProps {
   useShift: boolean;
   useCtrlShift: boolean;
   useDrag: boolean;
+  useShiftToDrag: boolean;
   onSelect: (index: number) => void;
   onUnselect: (index: number) => void;
   onFocus: (index: number) => void;
@@ -25,6 +26,7 @@ export default function Select({
   useShift,
   useCtrlShift,
   useDrag,
+  useShiftToDrag,
   onSelect,
   onUnselect,
   onFocus,
@@ -34,7 +36,9 @@ export default function Select({
   const selectedIndexes = useRecoilValue(selectedIndexesState);
   const prevSelectedIndexesRef = useRef<number[]>(selectedIndexes);
   const focusedIndex = useRecoilValue(focusedIndexState);
-  const { wrapperRef, dragBoxPosition, dragBoxSize } = useDragSelect();
+  const { wrapperRef, dragBoxPosition, dragBoxSize } = useDragSelect({
+    useShift: useShiftToDrag,
+  });
 
   useEffect(() => {
     setSelectionOptions({
@@ -42,8 +46,16 @@ export default function Select({
       useShift,
       useCtrlShift,
       useDrag,
+      useShiftToDrag,
     });
-  }, [useCtrl, useShift, useCtrlShift, useDrag, setSelectionOptions]);
+  }, [
+    useCtrl,
+    useShift,
+    useCtrlShift,
+    useDrag,
+    useShiftToDrag,
+    setSelectionOptions,
+  ]);
 
   useEffect(() => {
     const prevSelectedIndexes = prevSelectedIndexesRef.current;
