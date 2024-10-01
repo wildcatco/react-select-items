@@ -1,13 +1,6 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  dragBoxElementState,
-  focusedIndexState,
-  isDraggingState,
-  selectedIndexesState,
-  selectionOptionsState,
-} from './states';
-import useSelect from './useSelect';
 import { useEffect, useRef } from 'react';
+import useSelect from './useSelect';
+import { useSelectStore } from './useSelectStore';
 
 interface SelectableProps {
   index: number;
@@ -16,14 +9,16 @@ interface SelectableProps {
 
 export default function Selectable({ index, children }: SelectableProps) {
   const { selectOnlyOne, select, unselect, selectRange } = useSelect();
-  const [focusedIndex, setFocusedIndex] = useRecoilState(focusedIndexState);
-  const { useCtrl, useShift, useCtrlShift } = useRecoilValue(
-    selectionOptionsState
-  );
-  const selectedIndexes = useRecoilValue(selectedIndexesState);
-  const dragBoxElement = useRecoilValue(dragBoxElementState);
+  const {
+    focusedIndex,
+    setFocusedIndex,
+    selectionOptions,
+    selectedIndexes,
+    dragBoxElement,
+    setIsDragging,
+  } = useSelectStore();
+  const { useCtrl, useShift, useCtrlShift } = selectionOptions;
   const ref = useRef<HTMLDivElement>(null);
-  const setIsDragging = useSetRecoilState(isDraggingState);
 
   const isSelected = selectedIndexes.has(index);
 

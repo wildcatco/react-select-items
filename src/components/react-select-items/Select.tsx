@@ -1,14 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import DragBox from './DragBox';
-import {
-  focusedIndexState,
-  isDraggingState,
-  selectedIndexesState,
-  selectionOptionsState,
-} from './states';
 import useDragSelect from './useDragSelect';
 import useSelect from './useSelect';
+import { useSelectStore } from './useSelectStore';
 
 interface SelectHooksProps {
   useCtrl: boolean;
@@ -33,14 +27,17 @@ export default function Select({
   onFocus,
   children,
 }: SelectHooksProps) {
-  const setSelectionOptions = useSetRecoilState(selectionOptionsState);
-  const selectedIndexes = useRecoilValue(selectedIndexesState);
+  const {
+    selectedIndexes,
+    focusedIndex,
+    isDragging,
+    setIsDragging,
+    setSelectionOptions,
+  } = useSelectStore();
   const prevSelectedIndexesRef = useRef<Set<number>>(selectedIndexes);
-  const focusedIndex = useRecoilValue(focusedIndexState);
   const { wrapperRef, dragBoxPosition, dragBoxSize } = useDragSelect({
     useShift: useShiftToDrag,
   });
-  const [isDragging, setIsDragging] = useRecoilState(isDraggingState);
   const { unselectAll } = useSelect();
 
   useEffect(() => {

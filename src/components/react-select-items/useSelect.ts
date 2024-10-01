@@ -1,47 +1,56 @@
-import { useRecoilState } from 'recoil';
-import { selectedIndexesState } from './states';
+import { useCallback } from 'react';
+import { useSelectStore } from './useSelectStore';
 
 export default function useSelect() {
-  const [selectedIndexes, setSelectedIndexes] =
-    useRecoilState(selectedIndexesState);
+  const { selectedIndexes, setSelectedIndexes } = useSelectStore();
 
-  const selectOnlyOne = (index: number) => {
-    setSelectedIndexes(new Set([index]));
-  };
+  const selectOnlyOne = useCallback(
+    (index: number) => {
+      setSelectedIndexes(new Set([index]));
+    },
+    [setSelectedIndexes]
+  );
 
-  const select = (index: number) => {
-    setSelectedIndexes((prev) => new Set([...prev, index]));
-  };
+  const select = useCallback(
+    (index: number) => {
+      setSelectedIndexes(new Set([...selectedIndexes, index]));
+    },
+    [selectedIndexes, setSelectedIndexes]
+  );
 
-  const unselect = (indexToRemove: number) => {
-    setSelectedIndexes((prev) => {
-      const newSet = new Set(prev);
-      newSet.delete(indexToRemove);
-      return newSet;
-    });
-  };
+  const unselect = useCallback(
+    (indexToRemove: number) => {
+      setSelectedIndexes(
+        new Set([...selectedIndexes].filter((index) => index !== indexToRemove))
+      );
+    },
+    [selectedIndexes, setSelectedIndexes]
+  );
 
-  const selectRange = ({
-    startIndex,
-    endIndex,
-    append,
-  }: {
-    startIndex: number;
-    endIndex: number;
-    append: boolean;
-  }) => {
-    const indexesToSelect: Set<number> = append
-      ? new Set([...selectedIndexes])
-      : new Set();
-    for (let i = startIndex; i <= endIndex; i++) {
-      indexesToSelect.add(i);
-    }
-    setSelectedIndexes(indexesToSelect);
-  };
+  const selectRange = useCallback(
+    ({
+      startIndex,
+      endIndex,
+      append,
+    }: {
+      startIndex: number;
+      endIndex: number;
+      append: boolean;
+    }) => {
+      const indexesToSelect: Set<number> = append
+        ? new Set([...selectedIndexes])
+        : new Set();
+      for (let i = startIndex; i <= endIndex; i++) {
+        indexesToSelect.add(i);
+      }
+      setSelectedIndexes(indexesToSelect);
+    },
+    [selectedIndexes, setSelectedIndexes]
+  );
 
-  const unselectAll = () => {
+  const unselectAll = useCallback(() => {
     setSelectedIndexes(new Set());
-  };
+  }, [setSelectedIndexes]);
 
   return { selectOnlyOne, select, unselect, selectRange, unselectAll };
 }

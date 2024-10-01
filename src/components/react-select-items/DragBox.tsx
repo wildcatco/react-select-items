@@ -1,5 +1,4 @@
-import { useSetRecoilState } from 'recoil';
-import { dragBoxElementState } from './states';
+import { useSelectStore } from './useSelectStore';
 
 interface DragBoxProps {
   position: { x: number; y: number };
@@ -7,7 +6,7 @@ interface DragBoxProps {
 }
 
 export default function DragBox({ position, size }: DragBoxProps) {
-  const setDragBoxElement = useSetRecoilState(dragBoxElementState);
+  const { setDragBoxElement } = useSelectStore();
 
   return (
     <div

@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { isDraggingState } from './states';
+import { useSelectStore } from './useSelectStore';
 
 export default function useDragSelect({ useShift }: { useShift: boolean }) {
   const mouseDownPointRef = useRef<{ x: number; y: number } | null>(null);
-  const setIsDragging = useSetRecoilState(isDraggingState);
+  const { setIsDragging } = useSelectStore();
   const [dragStartPoint, setDragStartPoint] = useState<{
     x: number;
     y: number;

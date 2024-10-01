@@ -1,6 +1,6 @@
-import { RecoilRoot } from 'recoil';
 import Select from './Select';
 import { SelectionOptions } from './types';
+import { SelectProvider } from './useSelectStore';
 
 type SelectAreaProps = SelectionOptions & {
   onSelect: (index: number) => void;
@@ -21,7 +21,7 @@ export default function SelectArea({
   children,
 }: SelectAreaProps) {
   return (
-    <RecoilRoot>
+    <SelectProvider>
       <Select
         useCtrl={useCtrl}
         useShift={useShift}
@@ -34,6 +34,6 @@ export default function SelectArea({
       >
         {children}
       </Select>
-    </RecoilRoot>
+    </SelectProvider>
   );
 }
