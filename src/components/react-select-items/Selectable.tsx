@@ -82,7 +82,7 @@ export default function Selectable({ index, children }: SelectableProps) {
   }, [dragBoxElement, index, isSelected, select, unselect]);
 
   return (
-    <div ref={ref} onMouseDown={handleMouseDown}>
+    <div ref={ref} onMouseDown={handleMouseDown} className='temp'>
       {children}
     </div>
   );

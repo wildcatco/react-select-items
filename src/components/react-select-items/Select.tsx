@@ -1,13 +1,15 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useEffect, useRef } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import DragBox from './DragBox';
+import styles from './Select.module.css';
 import {
   focusedIndexState,
+  isDraggingState,
   selectedIndexesState,
   selectionOptionsState,
 } from './states';
-import { useEffect, useRef } from 'react';
-import DragBox from './DragBox';
-import styles from './Select.module.css';
 import useDragSelect from './useDragSelect';
+import useSelect from './useSelect';
 
 interface SelectHooksProps {
   useCtrl: boolean;
@@ -39,6 +41,8 @@ export default function Select({
   const { wrapperRef, dragBoxPosition, dragBoxSize } = useDragSelect({
     useShift: useShiftToDrag,
   });
+  const [isDragging, setIsDragging] = useRecoilState(isDraggingState);
+  const { unselectAll } = useSelect();
 
   useEffect(() => {
     setSelectionOptions({
@@ -77,8 +81,34 @@ export default function Select({
     prevSelectedIndexesRef.current = selectedIndexes;
   }, [onSelect, onUnselect, selectedIndexes, focusedIndex, onFocus]);
 
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    window.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [setIsDragging, wrapperRef]);
+
+  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (
+      e.target instanceof HTMLElement &&
+      !e.target.closest('.temp') &&
+      !isDragging
+    ) {
+      unselectAll();
+    }
+    setIsDragging(false);
+  };
+
   return (
-    <div ref={wrapperRef} className={styles.wrapper}>
+    <div ref={wrapperRef} className={styles.wrapper} onMouseUp={handleMouseUp}>
       {dragBoxPosition && dragBoxSize && (
         <DragBox
           position={{ x: dragBoxPosition.x, y: dragBoxPosition.y }}

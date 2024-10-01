@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { isDraggingState } from './states';
 
 export default function useDragSelect({ useShift }: { useShift: boolean }) {
-  const [isDragging, setIsDragging] = useRecoilState(isDraggingState);
+  const mouseDownPointRef = useRef<{ x: number; y: number } | null>(null);
+  const setIsDragging = useSetRecoilState(isDraggingState);
   const [dragStartPoint, setDragStartPoint] = useState<{
     x: number;
     y: number;
@@ -22,8 +23,18 @@ export default function useDragSelect({ useShift }: { useShift: boolean }) {
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
+      if (!mouseDownPointRef.current) return;
       if (useShift && !e.shiftKey) return;
-      if (!isDragging || !dragStartPoint || !rectRef.current) return;
+      if (
+        mouseDownPointRef.current?.x === e.clientX &&
+        mouseDownPointRef.current?.y === e.clientY
+      ) {
+        return;
+      }
+
+      setIsDragging(true);
+
+      if (!dragStartPoint || !rectRef.current) return;
 
       const dragEndPoint = {
         x: Math.max(
@@ -49,45 +60,43 @@ export default function useDragSelect({ useShift }: { useShift: boolean }) {
         })
       );
     },
-    [dragStartPoint, isDragging]
+    [dragStartPoint, setIsDragging, useShift]
   );
 
   const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
     setDragStartPoint(null);
     setDragBoxPosition(null);
     setDragBoxSize(null);
+    mouseDownPointRef.current = null;
   }, []);
 
-  const handleMouseDown = (e: MouseEvent) => {
-    if (!wrapperRef.current) return;
-
-    setIsDragging(true);
-
-    const rect = wrapperRef.current.getBoundingClientRect();
-    rectRef.current = rect;
-
-    const startPoint = {
-      x: Math.max(rect.left, Math.min(e.clientX, rect.right)),
-      y: Math.max(rect.top, Math.min(e.clientY, rect.bottom)),
-    };
-    setDragStartPoint(startPoint);
-  };
-
   useEffect(() => {
-    wrapperRef.current?.addEventListener('mousedown', handleMouseDown);
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
 
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    }
+    const handleMouseDown = (e: MouseEvent) => {
+      mouseDownPointRef.current = { x: e.clientX, y: e.clientY };
+
+      const rect = wrapper.getBoundingClientRect();
+      rectRef.current = rect;
+
+      const startPoint = {
+        x: Math.max(rect.left, Math.min(e.clientX, rect.right)),
+        y: Math.max(rect.top, Math.min(e.clientY, rect.bottom)),
+      };
+      setDragStartPoint(startPoint);
+    };
+
+    wrapper.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
 
     return () => {
-      wrapperRef.current?.removeEventListener('mousedown', handleMouseDown);
+      wrapper.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, handleMouseMove, handleMouseUp, handleMouseDown]);
+  }, [handleMouseMove, handleMouseUp]);
 
   return {
     wrapperRef,

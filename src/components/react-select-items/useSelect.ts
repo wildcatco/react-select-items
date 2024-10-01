@@ -39,5 +39,9 @@ export default function useSelect() {
     setSelectedIndexes(indexesToSelect);
   };
 
-  return { selectOnlyOne, select, unselect, selectRange };
+  const unselectAll = () => {
+    setSelectedIndexes(new Set());
+  };
+
+  return { selectOnlyOne, select, unselect, selectRange, unselectAll };
 }
