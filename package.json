@@ -4,7 +4,7 @@
     "name": "react-select-items",
     "description": "React library for selecting multiple items",
     "private": false,
-    "version": "0.0.5",
+    "version": "0.0.6",
     "main": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "exports": {
@@ -31,6 +31,7 @@
         "clsx": "^2.1.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "react-select-items": "^0.0.5",
         "zustand": "^5.0.0-rc.2"
     },
     "devDependencies": {
