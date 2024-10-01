@@ -6,19 +6,19 @@ export default function useSelect() {
     useRecoilState(selectedIndexesState);
 
   const selectOnlyOne = (index: number) => {
-    setSelectedIndexes([index]);
+    setSelectedIndexes(new Set([index]));
   };
 
   const select = (index: number) => {
-    if (!selectedIndexes.includes(index)) {
-      setSelectedIndexes((prev) => [...prev, index]);
-    }
+    setSelectedIndexes((prev) => new Set([...prev, index]));
   };
 
   const unselect = (indexToRemove: number) => {
-    setSelectedIndexes((prev) =>
-      prev.filter((index) => index !== indexToRemove)
-    );
+    setSelectedIndexes((prev) => {
+      const newSet = new Set(prev);
+      newSet.delete(indexToRemove);
+      return newSet;
+    });
   };
 
   const selectRange = ({
@@ -30,11 +30,11 @@ export default function useSelect() {
     endIndex: number;
     append: boolean;
   }) => {
-    const indexesToSelect: number[] = append ? [...selectedIndexes] : [];
+    const indexesToSelect: Set<number> = append
+      ? new Set([...selectedIndexes])
+      : new Set();
     for (let i = startIndex; i <= endIndex; i++) {
-      if (!indexesToSelect.includes(i)) {
-        indexesToSelect.push(i);
-      }
+      indexesToSelect.add(i);
     }
     setSelectedIndexes(indexesToSelect);
   };

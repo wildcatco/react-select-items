@@ -34,7 +34,7 @@ export default function Select({
 }: SelectHooksProps) {
   const setSelectionOptions = useSetRecoilState(selectionOptionsState);
   const selectedIndexes = useRecoilValue(selectedIndexesState);
-  const prevSelectedIndexesRef = useRef<number[]>(selectedIndexes);
+  const prevSelectedIndexesRef = useRef<Set<number>>(selectedIndexes);
   const focusedIndex = useRecoilValue(focusedIndexState);
   const { wrapperRef, dragBoxPosition, dragBoxSize } = useDragSelect({
     useShift: useShiftToDrag,
@@ -61,13 +61,13 @@ export default function Select({
     const prevSelectedIndexes = prevSelectedIndexesRef.current;
 
     selectedIndexes.forEach((index) => {
-      if (!prevSelectedIndexes.includes(index)) {
+      if (!prevSelectedIndexes.has(index)) {
         onSelect(index);
       }
     });
 
     prevSelectedIndexes.forEach((index) => {
-      if (!selectedIndexes.includes(index)) {
+      if (!selectedIndexes.has(index)) {
         onUnselect(index);
       }
     });

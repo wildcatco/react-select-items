@@ -1,9 +1,9 @@
 import { atom } from 'recoil';
 import { SelectionOptions } from './types';
 
-export const selectedIndexesState = atom<number[]>({
+export const selectedIndexesState = atom<Set<number>>({
   key: 'SelectedIndexes',
-  default: [],
+  default: new Set(),
 });
 
 export const focusedIndexState = atom<number>({

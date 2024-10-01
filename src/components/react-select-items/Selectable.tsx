@@ -25,7 +25,7 @@ export default function Selectable({ index, children }: SelectableProps) {
   const ref = useRef<HTMLDivElement>(null);
   const setIsDragging = useSetRecoilState(isDraggingState);
 
-  const isSelected = selectedIndexes.includes(index);
+  const isSelected = selectedIndexes.has(index);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(false);
