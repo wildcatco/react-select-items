@@ -4,13 +4,13 @@
     "name": "react-select-items",
     "description": "React library for selecting multiple items",
     "private": false,
-    "version": "0.0.6",
+    "version": "0.0.7",
     "main": "dist/index.es.js",
+    "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/index.js",
-            "require": "./dist/index.umd.cjs",
+            "import": "./dist/index.es.js",
             "types": "./dist/index.d.ts"
         }
     },
@@ -31,7 +31,6 @@
         "clsx": "^2.1.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-select-items": "^0.0.5",
         "zustand": "^5.0.0-rc.2"
     },
     "devDependencies": {
