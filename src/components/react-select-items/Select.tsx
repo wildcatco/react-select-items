@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import DragBox from './DragBox';
-import styles from './Select.module.css';
 import {
   focusedIndexState,
   isDraggingState,
@@ -108,7 +107,11 @@ export default function Select({
   };
 
   return (
-    <div ref={wrapperRef} className={styles.wrapper} onMouseUp={handleMouseUp}>
+    <div
+      ref={wrapperRef}
+      onMouseUp={handleMouseUp}
+      style={{ width: '100%', height: '100%' }}
+    >
       {dragBoxPosition && dragBoxSize && (
         <DragBox
           position={{ x: dragBoxPosition.x, y: dragBoxPosition.y }}

@@ -14,7 +14,7 @@ export default function DragBox({ position, size }: DragBoxProps) {
       ref={setDragBoxElement}
       style={{
         position: 'fixed',
-        border: '1px solid gray',
+        border: '1px dashed gray',
         left: position.x,
         top: position.y,
         width: size.width,
