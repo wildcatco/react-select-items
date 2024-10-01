@@ -3,8 +3,8 @@ import Select from './Select';
 import { SelectionOptions } from './types';
 
 type SelectAreaProps = SelectionOptions & {
-  onSelect: (id: string) => void;
-  onUnselect: (id: string) => void;
+  onSelect: (index: number) => void;
+  onUnselect: (index: number) => void;
   children: React.ReactNode;
 };
 

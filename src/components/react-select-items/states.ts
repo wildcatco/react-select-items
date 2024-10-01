@@ -1,8 +1,8 @@
 import { atom } from 'recoil';
 import { SelectionOptions } from './types';
 
-export const selectedIdsState = atom<string[]>({
-  key: 'SelectedIds',
+export const selectedIndexesState = atom<number[]>({
+  key: 'SelectedIndexes',
   default: [],
 });
 

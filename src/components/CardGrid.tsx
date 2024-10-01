@@ -5,35 +5,29 @@ import SelectArea from './react-select-items/SelectArea';
 import Selectable from './react-select-items/Selectable';
 
 export default function CardGrid() {
-  const [selectedCardIds, setSelectedCardIds] = useState<string[]>([]);
+  const [selectedCardIndexes, setSelectedCardIndexes] = useState<number[]>([]);
 
-  const CARDS = [
-    { id: 'card-1', title: '1' },
-    { id: 'card-2', title: '2' },
-    { id: 'card-3', title: '3' },
-    { id: 'card-4', title: '4' },
-    { id: 'card-5', title: '5' },
-    { id: 'card-6', title: '6' },
-    { id: 'card-7', title: '7' },
-    { id: 'card-8', title: '8' },
-  ];
+  const CARD_NAMES = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
-  const handleSelect = (id: string) => {
-    if (!selectedCardIds.includes(id)) {
-      setSelectedCardIds((prev) => [...prev, id]);
+  const handleSelect = (index: number) => {
+    if (!selectedCardIndexes.includes(index)) {
+      setSelectedCardIndexes((prev) => [...prev, index]);
     }
   };
 
-  const handleUnselect = (id: string) => {
-    setSelectedCardIds((prev) => prev.filter((i) => i !== id));
+  const handleUnselect = (index: number) => {
+    setSelectedCardIndexes((prev) => prev.filter((i) => i !== index));
   };
 
   return (
     <SelectArea onSelect={handleSelect} onUnselect={handleUnselect}>
       <div className={styles.grid}>
-        {CARDS.map(({ id, title }) => (
-          <Selectable key={id} id={id}>
-            <Card title={title} selected={selectedCardIds.includes(id)} />
+        {CARD_NAMES.map((title, index) => (
+          <Selectable key={title + index} index={index}>
+            <Card
+              title={title}
+              selected={selectedCardIndexes.includes(index)}
+            />
           </Selectable>
         ))}
       </div>

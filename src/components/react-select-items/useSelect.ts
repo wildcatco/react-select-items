@@ -1,21 +1,24 @@
 import { useRecoilState } from 'recoil';
-import { selectedIdsState } from './state';
+import { selectedIndexesState } from './states';
 
 export default function useSelect() {
-  const [selectedIds, setSelectedIds] = useRecoilState(selectedIdsState);
+  const [selectedIndexes, setSelectedIndexes] =
+    useRecoilState(selectedIndexesState);
 
-  const selectOnlyOne = (id: string) => {
-    setSelectedIds([id]);
+  const selectOnlyOne = (index: number) => {
+    setSelectedIndexes([index]);
   };
 
-  const select = (id: string) => {
-    if (!selectedIds.includes(id)) {
-      setSelectedIds((prev) => [...prev, id]);
+  const select = (index: number) => {
+    if (!selectedIndexes.includes(index)) {
+      setSelectedIndexes((prev) => [...prev, index]);
     }
   };
 
-  const unselect = (idToRemove: string) => {
-    setSelectedIds((prev) => prev.filter((id) => id !== idToRemove));
+  const unselect = (indexToRemove: number) => {
+    setSelectedIndexes((prev) =>
+      prev.filter((index) => index !== indexToRemove)
+    );
   };
 
   return { selectOnlyOne, select, unselect };

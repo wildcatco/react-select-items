@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { selectedIdsState, selectionOptionsState } from './state';
+import { selectedIndexesState, selectionOptionsState } from './states';
 import { useEffect, useRef } from 'react';
 interface SelectHooksProps {
   useCtrl: boolean;
@@ -7,8 +7,8 @@ interface SelectHooksProps {
   useCtrlShift: boolean;
   useDrag: boolean;
   useShiftDrag: boolean;
-  onSelect: (id: string) => void;
-  onUnselect: (id: string) => void;
+  onSelect: (index: number) => void;
+  onUnselect: (index: number) => void;
 }
 
 export default function Select({
@@ -21,8 +21,8 @@ export default function Select({
   onUnselect,
 }: SelectHooksProps) {
   const setSelectionOptions = useSetRecoilState(selectionOptionsState);
-  const selectedIds = useRecoilValue(selectedIdsState);
-  const prevSelectedIdsRef = useRef<string[]>(selectedIds);
+  const selectedIndexes = useRecoilValue(selectedIndexesState);
+  const prevSelectedIndexesRef = useRef<number[]>(selectedIndexes);
 
   useEffect(() => {
     setSelectionOptions({
@@ -42,22 +42,22 @@ export default function Select({
   ]);
 
   useEffect(() => {
-    const prevSelectedIds = prevSelectedIdsRef.current;
+    const prevSelectedIndexes = prevSelectedIndexesRef.current;
 
-    selectedIds.forEach((id) => {
-      if (!prevSelectedIds.includes(id)) {
-        onSelect(id);
+    selectedIndexes.forEach((index) => {
+      if (!prevSelectedIndexes.includes(index)) {
+        onSelect(index);
       }
     });
 
-    prevSelectedIds.forEach((id) => {
-      if (!selectedIds.includes(id)) {
-        onUnselect(id);
+    prevSelectedIndexes.forEach((index) => {
+      if (!selectedIndexes.includes(index)) {
+        onUnselect(index);
       }
     });
 
-    prevSelectedIdsRef.current = selectedIds;
-  }, [onSelect, onUnselect, selectedIds]);
+    prevSelectedIndexesRef.current = selectedIndexes;
+  }, [onSelect, onUnselect, selectedIndexes]);
 
   return null;
 }
