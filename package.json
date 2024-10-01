@@ -1,15 +1,16 @@
 {
+    "author": "Jihoo Kim",
+    "license": "MIT",
     "name": "react-select-items",
     "description": "React library for selecting multiple items",
     "private": false,
-    "version": "0.0.3",
-    "main": "./dist/index.umd.js",
-    "module": "./dist/index.es.js",
-    "types": "./dist/index.d.ts",
+    "version": "0.0.4",
+    "main": "dist/index.es.js",
+    "types": "dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/index.es.js",
-            "require": "./dist/index.umd.js",
+            "import": "./dist/index.js",
+            "require": "./dist/index.umd.cjs",
             "types": "./dist/index.d.ts"
         }
     },
