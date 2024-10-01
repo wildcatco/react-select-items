@@ -39,7 +39,11 @@ export default function Selectable({ index, children }: SelectableProps) {
     } else if (useShift && e.shiftKey) {
       const start = Math.min(focusedIndex, index);
       const end = Math.max(focusedIndex, index);
-      selectRange({ startIndex: start, endIndex: end, append: !!useCtrlShift });
+      selectRange({
+        startIndex: start,
+        endIndex: end,
+        append: !!useCtrlShift && e.ctrlKey,
+      });
     } else {
       selectOnlyOne(index);
     }
