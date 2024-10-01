@@ -21,5 +21,13 @@ export default function useSelect() {
     );
   };
 
-  return { selectOnlyOne, select, unselect };
+  const selectRange = (startIndex: number, endIndex: number) => {
+    const indexesToSelect: number[] = [];
+    for (let i = startIndex; i <= endIndex; i++) {
+      indexesToSelect.push(i);
+    }
+    setSelectedIndexes(indexesToSelect);
+  };
+
+  return { selectOnlyOne, select, unselect, selectRange };
 }

@@ -6,6 +6,11 @@ export const selectedIndexesState = atom<number[]>({
   default: [],
 });
 
+export const focusedIndexState = atom<number>({
+  key: 'FocusedIndex',
+  default: 0,
+});
+
 export const selectionOptionsState = atom<SelectionOptions>({
   key: 'SelectionOptions',
   default: {

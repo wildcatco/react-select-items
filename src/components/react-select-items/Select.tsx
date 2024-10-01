@@ -1,6 +1,11 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { selectedIndexesState, selectionOptionsState } from './states';
+import {
+  focusedIndexState,
+  selectedIndexesState,
+  selectionOptionsState,
+} from './states';
 import { useEffect, useRef } from 'react';
+
 interface SelectHooksProps {
   useCtrl: boolean;
   useShift: boolean;
@@ -9,6 +14,7 @@ interface SelectHooksProps {
   useShiftDrag: boolean;
   onSelect: (index: number) => void;
   onUnselect: (index: number) => void;
+  onFocus: (index: number) => void;
 }
 
 export default function Select({
@@ -19,10 +25,12 @@ export default function Select({
   useShiftDrag,
   onSelect,
   onUnselect,
+  onFocus,
 }: SelectHooksProps) {
   const setSelectionOptions = useSetRecoilState(selectionOptionsState);
   const selectedIndexes = useRecoilValue(selectedIndexesState);
   const prevSelectedIndexesRef = useRef<number[]>(selectedIndexes);
+  const focusedIndex = useRecoilValue(focusedIndexState);
 
   useEffect(() => {
     setSelectionOptions({
@@ -56,8 +64,10 @@ export default function Select({
       }
     });
 
+    onFocus(focusedIndex);
+
     prevSelectedIndexesRef.current = selectedIndexes;
-  }, [onSelect, onUnselect, selectedIndexes]);
+  }, [onSelect, onUnselect, selectedIndexes, focusedIndex, onFocus]);
 
   return null;
 }

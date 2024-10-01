@@ -5,6 +5,7 @@ import { SelectionOptions } from './types';
 type SelectAreaProps = SelectionOptions & {
   onSelect: (index: number) => void;
   onUnselect: (index: number) => void;
+  onFocus: (index: number) => void;
   children: React.ReactNode;
 };
 
@@ -16,6 +17,7 @@ export default function SelectArea({
   useShiftDrag = false,
   onSelect,
   onUnselect,
+  onFocus,
   children,
 }: SelectAreaProps) {
   return (
@@ -28,6 +30,7 @@ export default function SelectArea({
         useShiftDrag={useShiftDrag}
         onSelect={onSelect}
         onUnselect={onUnselect}
+        onFocus={onFocus}
       />
       {children}
     </RecoilRoot>
