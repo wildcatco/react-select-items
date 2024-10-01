@@ -2,7 +2,7 @@
     "name": "react-select-items",
     "description": "React library for selecting multiple items",
     "private": false,
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "./dist/index.umd.js",
     "module": "./dist/index.es.js",
     "types": "./dist/index.d.ts",
