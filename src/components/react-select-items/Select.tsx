@@ -5,16 +5,19 @@ import {
   selectionOptionsState,
 } from './states';
 import { useEffect, useRef } from 'react';
+import DragBox from './DragBox';
+import styles from './Select.module.css';
+import useDragSelect from './useDragSelect';
 
 interface SelectHooksProps {
   useCtrl: boolean;
   useShift: boolean;
   useCtrlShift: boolean;
   useDrag: boolean;
-  useShiftDrag: boolean;
   onSelect: (index: number) => void;
   onUnselect: (index: number) => void;
   onFocus: (index: number) => void;
+  children: React.ReactNode;
 }
 
 export default function Select({
@@ -22,15 +25,16 @@ export default function Select({
   useShift,
   useCtrlShift,
   useDrag,
-  useShiftDrag,
   onSelect,
   onUnselect,
   onFocus,
+  children,
 }: SelectHooksProps) {
   const setSelectionOptions = useSetRecoilState(selectionOptionsState);
   const selectedIndexes = useRecoilValue(selectedIndexesState);
   const prevSelectedIndexesRef = useRef<number[]>(selectedIndexes);
   const focusedIndex = useRecoilValue(focusedIndexState);
+  const { wrapperRef, dragBoxPosition, dragBoxSize } = useDragSelect();
 
   useEffect(() => {
     setSelectionOptions({
@@ -38,16 +42,8 @@ export default function Select({
       useShift,
       useCtrlShift,
       useDrag,
-      useShiftDrag,
     });
-  }, [
-    useCtrl,
-    useShift,
-    useCtrlShift,
-    useDrag,
-    useShiftDrag,
-    setSelectionOptions,
-  ]);
+  }, [useCtrl, useShift, useCtrlShift, useDrag, setSelectionOptions]);
 
   useEffect(() => {
     const prevSelectedIndexes = prevSelectedIndexesRef.current;
@@ -69,5 +65,15 @@ export default function Select({
     prevSelectedIndexesRef.current = selectedIndexes;
   }, [onSelect, onUnselect, selectedIndexes, focusedIndex, onFocus]);
 
-  return null;
+  return (
+    <div ref={wrapperRef} className={styles.wrapper}>
+      {dragBoxPosition && dragBoxSize && (
+        <DragBox
+          position={{ x: dragBoxPosition.x, y: dragBoxPosition.y }}
+          size={{ width: dragBoxSize.width, height: dragBoxSize.height }}
+        />
+      )}
+      {children}
+    </div>
+  );
 }

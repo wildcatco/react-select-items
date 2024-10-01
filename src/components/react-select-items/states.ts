@@ -18,6 +18,15 @@ export const selectionOptionsState = atom<SelectionOptions>({
     useShift: true,
     useCtrlShift: true,
     useDrag: true,
-    useShiftDrag: false,
   },
+});
+
+export const dragBoxElementState = atom<HTMLDivElement | null>({
+  key: 'DragBoxElement',
+  default: null,
+});
+
+export const isDraggingState = atom<boolean>({
+  key: 'IsDragging',
+  default: false,
 });

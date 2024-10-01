@@ -24,22 +24,24 @@ export default function CardGrid() {
   };
 
   return (
-    <SelectArea
-      onSelect={handleSelect}
-      onUnselect={handleUnselect}
-      onFocus={handleFocus}
-    >
-      <div className={styles.grid}>
-        {CARD_NAMES.map((title, index) => (
-          <Selectable key={title + index} index={index}>
-            <Card
-              title={title}
-              selected={selectedCardIndexes.includes(index)}
-              focused={focusedCardIndex === index}
-            />
-          </Selectable>
-        ))}
-      </div>
-    </SelectArea>
+    <div className={styles.wrapper}>
+      <SelectArea
+        onSelect={handleSelect}
+        onUnselect={handleUnselect}
+        onFocus={handleFocus}
+      >
+        <div className={styles.grid}>
+          {CARD_NAMES.map((title, index) => (
+            <Selectable key={title + index} index={index}>
+              <Card
+                title={title}
+                selected={selectedCardIndexes.includes(index)}
+                focused={focusedCardIndex === index}
+              />
+            </Selectable>
+          ))}
+        </div>
+      </SelectArea>
+    </div>
   );
 }

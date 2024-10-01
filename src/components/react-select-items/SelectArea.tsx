@@ -14,7 +14,6 @@ export default function SelectArea({
   useShift = true,
   useCtrlShift = true,
   useDrag = true,
-  useShiftDrag = false,
   onSelect,
   onUnselect,
   onFocus,
@@ -27,12 +26,12 @@ export default function SelectArea({
         useShift={useShift}
         useCtrlShift={useCtrlShift}
         useDrag={useDrag}
-        useShiftDrag={useShiftDrag}
         onSelect={onSelect}
         onUnselect={onUnselect}
         onFocus={onFocus}
-      />
-      {children}
+      >
+        {children}
+      </Select>
     </RecoilRoot>
   );
 }

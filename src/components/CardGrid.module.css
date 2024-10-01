@@ -1,9 +1,14 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  width: fit-content;
-  gap: 20px;
-  padding: 50px;
+.wrapper {
+  width: 600px;
+  height: 400px;
   border: 1px solid #000;
-  margin: 20px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+  height: 100%;
+  padding: 30px 50px;
 }
