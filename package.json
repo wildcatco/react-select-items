@@ -4,7 +4,11 @@
     "name": "react-select-items",
     "description": "React library for selecting multiple items",
     "private": false,
-    "version": "0.0.9",
+    "version": "0.0.10",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wildcatco/react-select-items.git"
+    },
     "main": "dist/index.es.js",
     "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
