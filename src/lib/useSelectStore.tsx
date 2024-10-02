@@ -7,7 +7,7 @@ interface SelectStore {
   setSelectedIndexes: (indexes: Set<number>) => void;
   focusedIndex: number;
   setFocusedIndex: (index: number) => void;
-  selectionOptions: SelectionOptions;
+  selectionOptions: Required<SelectionOptions>;
   setSelectionOptions: (options: SelectionOptions) => void;
   dragBoxElement: HTMLDivElement | null;
   setDragBoxElement: (element: HTMLDivElement | null) => void;
@@ -34,7 +34,12 @@ const SelectProvider = ({ children }: { children: React.ReactNode }) => {
           useShiftToDrag: false,
         },
         setSelectionOptions: (options: SelectionOptions) =>
-          set({ selectionOptions: options }),
+          set((state) => ({
+            selectionOptions: {
+              ...state.selectionOptions,
+              ...options,
+            },
+          })),
         dragBoxElement: null,
         setDragBoxElement: (element) => set({ dragBoxElement: element }),
         isDragging: false,

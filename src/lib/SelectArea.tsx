@@ -2,35 +2,28 @@ import Select from './Select';
 import { SelectionOptions } from './types';
 import { SelectProvider } from './useSelectStore';
 
-type SelectAreaProps = SelectionOptions & {
-  onSelect: (index: number) => void;
-  onUnselect: (index: number) => void;
-  onFocus: (index: number) => void;
+type SelectAreaProps = {
+  onSelect?: (index: number) => void;
+  onUnselect?: (index: number) => void;
+  onFocus?: (index: number) => void;
+  options?: SelectionOptions;
   children: React.ReactNode;
 };
 
 export default function SelectArea({
-  useCtrl = true,
-  useShift = true,
-  useCtrlShift = true,
-  useDrag = true,
-  useShiftToDrag = false,
-  onSelect,
-  onUnselect,
-  onFocus,
+  onSelect = () => {},
+  onUnselect = () => {},
+  onFocus = () => {},
+  options,
   children,
 }: SelectAreaProps) {
   return (
     <SelectProvider>
       <Select
-        useCtrl={useCtrl}
-        useShift={useShift}
-        useCtrlShift={useCtrlShift}
-        useDrag={useDrag}
-        useShiftToDrag={useShiftToDrag}
         onSelect={onSelect}
         onUnselect={onUnselect}
         onFocus={onFocus}
+        options={options}
       >
         {children}
       </Select>

@@ -3,30 +3,23 @@ import DragBox from './DragBox';
 import useDragSelect from './useDragSelect';
 import useSelect from './useSelect';
 import { useSelectStore } from './useSelectStore';
+import { SelectionOptions } from './types';
 
-interface SelectHooksProps {
-  useCtrl: boolean;
-  useShift: boolean;
-  useCtrlShift: boolean;
-  useDrag: boolean;
-  useShiftToDrag: boolean;
+interface SelectProps {
   onSelect: (index: number) => void;
   onUnselect: (index: number) => void;
   onFocus: (index: number) => void;
+  options?: SelectionOptions;
   children: React.ReactNode;
 }
 
 export default function Select({
-  useCtrl,
-  useShift,
-  useCtrlShift,
-  useDrag,
-  useShiftToDrag,
   onSelect,
   onUnselect,
   onFocus,
+  options,
   children,
-}: SelectHooksProps) {
+}: SelectProps) {
   const {
     selectedIndexes,
     focusedIndex,
@@ -35,27 +28,17 @@ export default function Select({
     setSelectionOptions,
   } = useSelectStore();
   const prevSelectedIndexesRef = useRef<Set<number>>(selectedIndexes);
+  const { selectionOptions } = useSelectStore();
   const { wrapperRef, dragBoxPosition, dragBoxSize } = useDragSelect({
-    useShift: useShiftToDrag,
+    useShift: selectionOptions.useShiftToDrag,
   });
   const { unselectAll } = useSelect();
 
   useEffect(() => {
-    setSelectionOptions({
-      useCtrl,
-      useShift,
-      useCtrlShift,
-      useDrag,
-      useShiftToDrag,
-    });
-  }, [
-    useCtrl,
-    useShift,
-    useCtrlShift,
-    useDrag,
-    useShiftToDrag,
-    setSelectionOptions,
-  ]);
+    if (options) {
+      setSelectionOptions(options);
+    }
+  }, [options, setSelectionOptions]);
 
   useEffect(() => {
     const prevSelectedIndexes = prevSelectedIndexesRef.current;
