@@ -40,10 +40,19 @@ export default function Selectable({ index, children }: SelectableProps) {
         append: !!useCtrlShift && e.ctrlKey,
       });
     } else {
+      if (selectedIndexes.size > 1 && isSelected) {
+        return;
+      }
       selectOnlyOne(index);
     }
 
     setFocusedIndex(index);
+  };
+
+  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (selectedIndexes.size > 1 && isSelected && !e.ctrlKey && !e.shiftKey) {
+      selectOnlyOne(index);
+    }
   };
 
   useEffect(() => {
@@ -81,7 +90,12 @@ export default function Selectable({ index, children }: SelectableProps) {
   }, [dragBoxElement, index, isSelected, select, unselect]);
 
   return (
-    <div ref={ref} onMouseDown={handleMouseDown} className='temp'>
+    <div
+      ref={ref}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      className='temp'
+    >
       {children}
     </div>
   );
