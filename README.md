@@ -68,27 +68,23 @@ export default App;
 
 ### SelectArea
 
-The main component that wraps the selectable items.
-
-Props:
-
-- `onSelect`: (optional) Callback function called when an item is selected
-- `onUnselect`: (optional) Callback function called when an item is unselected
-- `onFocus`: (optional) Callback function called when an item is clicked
-- `options`: (optional) Selection options object with the following properties:
-  - `useCtrl`: (boolean) If true, allows using Ctrl + click for toggle selection (default: true)
-  - `useShift`: (boolean) If true, allows using Shift + click for range selection (default: true)
-  - `useCtrlShift`: (boolean) If true, allows using Ctrl + Shift + click for multiple range selection (default: true)
-  - `useDrag`: (boolean) If true, allows using mouse click and drag for box selection (default: true)
-  - `useShiftToDrag`: (boolean) If true, requires holding Shift key for box selection (default: false)
+| Prop                     | Type                      | Description                                                    | Default Value | Required |
+| ------------------------ | ------------------------- | -------------------------------------------------------------- | ------------- | -------- |
+| `onSelect`               | `(index: number) => void` | Callback function called when an item is selected              | -             | No       |
+| `onUnselect`             | `(index: number) => void` | Callback function called when an item is unselected            | -             | No       |
+| `onFocus`                | `(index: number) => void` | Callback function called when an item is clicked               | -             | No       |
+| `options`                | `object`                  | Selection options object with properties listed below          | -             | No       |
+| `options.useCtrl`        | `boolean`                 | Allows using Ctrl + click for toggle selection                 | true          | No       |
+| `options.useShift`       | `boolean`                 | Allows using Shift + click for range selection                 | true          | No       |
+| `options.useCtrlShift`   | `boolean`                 | Allows using Ctrl + Shift + click for multiple range selection | true          | No       |
+| `options.useDrag`        | `boolean`                 | Allows using mouse click and drag for box selection            | true          | No       |
+| `options.useShiftToDrag` | `boolean`                 | Requires holding Shift key for box selection                   | false         | No       |
 
 ### Selectable
 
-A wrapper component for individual selectable items.
-
-Props:
-
-- `index`: A unique number identifying the selectable item
+| Prop    | Type     | Description                                     | Default Value | Required |
+| ------- | -------- | ----------------------------------------------- | ------------- | -------- |
+| `index` | `number` | A unique number identifying the selectable item | -             | Yes      |
 
 ## License
 
