@@ -1,6 +1,6 @@
 # react-select-items
 
-`react-select-items` is a react package for multiple selection with keyboard and mouse. It offers a familiar interface similar to Windows Explorer, allowing users to intuitively select items.
+`react-select-items` is a react package for multiple selection with keyboard and mouse. It offers a familiar interface similar to Windows File Explorer, allowing users to intuitively select items.
 
 ## Demo
 
