@@ -1,50 +1,91 @@
-# React + TypeScript + Vite
+# react-select-items
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+`react-select-items` is a react package for multiple selection with keyboard and mouse. It offers a familiar interface similar to Windows Explorer, allowing users to intuitively select items.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Ctrl + click for toggle selection
+- Shift + click for range selection
+- Ctrl + Shift + click for multiple range selection
+- Mouse click and drag for box selection
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install react-select-items
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Usage
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Here's a basic example of how to use react-select-items:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```tsx
+import React from 'react';
+import { SelectArea, Selectable } from 'react-select-items';
+
+function App() {
+  const handleSelect = (index: number) => {
+    console.log('Selected:', index);
+  };
+
+  const handleUnselect = (index: number) => {
+    console.log('Unselected:', index);
+  };
+
+  const handleFocus = (index: number) => {
+    console.log('Focused:', index);
+  };
+
+  return (
+    <SelectArea
+      onSelect={handleSelect}
+      onUnselect={handleUnselect}
+      onFocus={handleFocus}
+    >
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <Selectable index={0}>
+          <div>Item 1</div>
+        </Selectable>
+        <Selectable index={1}>
+          <div>Item 2</div>
+        </Selectable>
+        <Selectable index={2}>
+          <div>Item 3</div>
+        </Selectable>
+      </div>
+    </SelectArea>
+  );
+}
+
+export default App;
 ```
+
+## API
+
+### SelectArea
+
+The main component that wraps the selectable items.
+
+Props:
+
+- `onSelect`: (optional) Callback function called when an item is selected
+- `onUnselect`: (optional) Callback function called when an item is unselected
+- `onFocus`: (optional) Callback function called when an item is clicked
+- `options`: (optional) Selection options object with the following properties:
+  - `useCtrl`: (boolean) If true, allows using Ctrl + click for toggle selection (default: true)
+  - `useShift`: (boolean) If true, allows using Shift + click for range selection (default: true)
+  - `useCtrlShift`: (boolean) If true, allows using Ctrl + Shift + click for multiple range selection (default: true)
+  - `useDrag`: (boolean) If true, allows using mouse click and drag for box selection (default: true)
+  - `useShiftToDrag`: (boolean) If true, requires holding Shift key for box selection (default: false)
+
+### Selectable
+
+A wrapper component for individual selectable items.
+
+Props:
+
+- `index`: A unique number identifying the selectable item
+
+## License
+
+This project is licensed under the MIT License.
