@@ -3,6 +3,12 @@
     "license": "MIT",
     "name": "react-select-items",
     "description": "React library for selecting multiple items",
+    "keywords": [
+        "react",
+        "select",
+        "react-select",
+        "multiple-selection"
+    ],
     "private": false,
     "version": "0.0.14",
     "repository": {
