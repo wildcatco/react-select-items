@@ -2,8 +2,16 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import dts from 'vite-plugin-dts';
+import { UserConfig as VitestUserConfig } from 'vitest/config';
 
-// https://vitejs.dev/config/
+const vitestConfig: VitestUserConfig = {
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+  },
+};
+
 export default defineConfig({
   plugins: [
     react(),
@@ -29,4 +37,5 @@ export default defineConfig({
     },
     emptyOutDir: true,
   },
+  ...vitestConfig,
 });
