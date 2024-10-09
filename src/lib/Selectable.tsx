@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import useSelect from './useSelect';
-import { useSelectStore } from './useSelectStore';
+import { useEffect, useRef } from "react";
+import useSelect from "./useSelect";
+import { useSelectStore } from "./useSelectStore";
 
 interface SelectableProps {
   index: number;
@@ -52,6 +52,7 @@ export default function Selectable({ index, children }: SelectableProps) {
   const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
     if (selectedIndexes.size > 1 && isSelected && !e.ctrlKey && !e.shiftKey) {
       selectOnlyOne(index);
+      setFocusedIndex(index);
     }
   };
 
@@ -81,11 +82,11 @@ export default function Selectable({ index, children }: SelectableProps) {
     };
 
     if (dragBoxElement) {
-      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener("mousemove", handleMouseMove);
     }
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, [dragBoxElement, index, isSelected, select, unselect]);
 
@@ -94,7 +95,7 @@ export default function Selectable({ index, children }: SelectableProps) {
       ref={ref}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      className='temp'
+      className="temp"
     >
       {children}
     </div>
