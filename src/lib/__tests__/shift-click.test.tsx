@@ -28,7 +28,7 @@ it('range selection with shift + click', async () => {
           <div data-testid='item-4'>item4</div>
         </Selectable>
       </div>
-    </SelectArea>
+    </SelectArea>,
   );
 
   const item1 = screen.getByTestId('item-1');

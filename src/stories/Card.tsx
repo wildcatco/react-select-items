@@ -13,7 +13,7 @@ export default function Card({ title, selected, focused }: CardProps) {
       className={clsx(
         styles.card,
         selected && styles.selected,
-        !selected && focused && styles.focused
+        !selected && focused && styles.focused,
       )}
     >
       {title}

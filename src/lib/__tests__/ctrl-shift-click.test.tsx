@@ -37,7 +37,7 @@ it('multiple range selection with ctrl + shift + click', async () => {
           <div data-testid='item-7'>item7</div>
         </Selectable>
       </div>
-    </SelectArea>
+    </SelectArea>,
   );
 
   const item2 = screen.getByTestId('item-2');

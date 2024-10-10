@@ -38,11 +38,11 @@ export default function useDragSelect({ useShift }: { useShift: boolean }) {
       const dragEndPoint = {
         x: Math.max(
           rectRef.current.left,
-          Math.min(e.clientX, rectRef.current.right)
+          Math.min(e.clientX, rectRef.current.right),
         ),
         y: Math.max(
           rectRef.current.top,
-          Math.min(e.clientY, rectRef.current.bottom)
+          Math.min(e.clientY, rectRef.current.bottom),
         ),
       };
 
@@ -50,16 +50,16 @@ export default function useDragSelect({ useShift }: { useShift: boolean }) {
         calculateDragBoxPosition({
           dragStartPoint,
           dragEndPoint,
-        })
+        }),
       );
       setDragBoxSize(
         calculateDragBoxSize({
           dragStartPoint,
           dragEndPoint,
-        })
+        }),
       );
     },
-    [dragStartPoint, setIsDragging, useShift]
+    [dragStartPoint, setIsDragging, useShift],
   );
 
   const handleMouseUp = useCallback(() => {

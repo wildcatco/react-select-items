@@ -8,23 +8,25 @@ export default function useSelect() {
     (index: number) => {
       setSelectedIndexes(new Set([index]));
     },
-    [setSelectedIndexes]
+    [setSelectedIndexes],
   );
 
   const select = useCallback(
     (index: number) => {
       setSelectedIndexes(new Set([...selectedIndexes, index]));
     },
-    [selectedIndexes, setSelectedIndexes]
+    [selectedIndexes, setSelectedIndexes],
   );
 
   const unselect = useCallback(
     (indexToRemove: number) => {
       setSelectedIndexes(
-        new Set([...selectedIndexes].filter((index) => index !== indexToRemove))
+        new Set(
+          [...selectedIndexes].filter((index) => index !== indexToRemove),
+        ),
       );
     },
-    [selectedIndexes, setSelectedIndexes]
+    [selectedIndexes, setSelectedIndexes],
   );
 
   const selectRange = useCallback(
@@ -45,7 +47,7 @@ export default function useSelect() {
       }
       setSelectedIndexes(indexesToSelect);
     },
-    [selectedIndexes, setSelectedIndexes]
+    [selectedIndexes, setSelectedIndexes],
   );
 
   const unselectAll = useCallback(() => {

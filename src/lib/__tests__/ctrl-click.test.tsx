@@ -22,7 +22,7 @@ it('toggle selection with ctrl + click', async () => {
           <div data-testid='item-2'>item2</div>
         </Selectable>
       </div>
-    </SelectArea>
+    </SelectArea>,
   );
 
   const item0 = screen.getByTestId('item-0');

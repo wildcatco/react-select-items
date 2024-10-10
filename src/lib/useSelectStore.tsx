@@ -45,7 +45,7 @@ const SelectProvider = ({ children }: { children: React.ReactNode }) => {
         isDragging: false,
         setIsDragging: (isDragging) => set({ isDragging }),
       })),
-    []
+    [],
   );
 
   const store = useSelectStore();
