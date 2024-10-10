@@ -24,6 +24,7 @@ export default function Selectable({ index, children }: SelectableProps) {
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(false);
+    setFocusedIndex(index);
 
     if (useCtrl && e.ctrlKey && !e.shiftKey) {
       if (isSelected) {
@@ -45,8 +46,6 @@ export default function Selectable({ index, children }: SelectableProps) {
       }
       selectOnlyOne(index);
     }
-
-    setFocusedIndex(index);
   };
 
   const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
