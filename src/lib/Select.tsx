@@ -58,7 +58,8 @@ export default function Select({
     onFocus(focusedIndex);
 
     prevSelectedIndexesRef.current = selectedIndexes;
-  }, [onSelect, onUnselect, selectedIndexes, focusedIndex, onFocus]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedIndexes, focusedIndex]);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
