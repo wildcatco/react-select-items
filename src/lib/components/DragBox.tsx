@@ -1,3 +1,4 @@
+import { DEFAULT_DRAG_BOX_CLASS_NAME } from '../constants/classnames';
 import useSelectStore from '../hooks/useSelectStore';
 
 interface DragBoxProps {
@@ -6,15 +7,17 @@ interface DragBoxProps {
   className?: string;
 }
 
-const DEFAULT_DRAG_BOX_CLASS_NAME = 'react-select-items-drag-box';
-
-export default function DragBox({ position, size, className }: DragBoxProps) {
+export default function DragBox({
+  position,
+  size,
+  className = DEFAULT_DRAG_BOX_CLASS_NAME,
+}: DragBoxProps) {
   const { setDragBoxElement } = useSelectStore();
 
   return (
     <div
       ref={setDragBoxElement}
-      className={className ?? DEFAULT_DRAG_BOX_CLASS_NAME}
+      className={className}
       style={{
         position: 'fixed',
         border: '1px dashed gray',

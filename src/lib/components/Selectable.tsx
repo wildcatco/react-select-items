@@ -1,5 +1,6 @@
 import { PropsWithChildren, useEffect, useRef } from 'react';
 import useSelectStore from '../hooks/useSelectStore';
+import { SELECTABLE_CLASS_NAME } from '../constants/classnames';
 
 interface SelectableProps extends PropsWithChildren {
   index: number;
@@ -94,7 +95,7 @@ export default function Selectable({ index, children }: SelectableProps) {
       ref={ref}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      className='temp'
+      className={SELECTABLE_CLASS_NAME}
     >
       {children}
     </div>

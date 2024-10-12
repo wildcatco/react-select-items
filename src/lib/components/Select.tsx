@@ -3,6 +3,7 @@ import DragBox from './DragBox';
 import useDragSelect from '../hooks/useDragSelect';
 import useSelectStore from '../hooks/useSelectStore';
 import { SelectionOptions } from '../types/selectionOptions';
+import { SELECTABLE_CLASS_NAME } from '../constants/classnames';
 
 export interface SelectProps extends PropsWithChildren {
   onSelect: (index: number) => void;
@@ -79,7 +80,7 @@ export default function Select({
   const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
     if (
       e.target instanceof HTMLElement &&
-      !e.target.closest('.temp') &&
+      !e.target.closest(`.${SELECTABLE_CLASS_NAME}`) &&
       !isDragging
     ) {
       unselectAll();
