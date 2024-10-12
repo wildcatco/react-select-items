@@ -1,4 +1,4 @@
-import useSelectStore from './useSelectStore';
+import useSelectStore from '../hooks/useSelectStore';
 
 interface DragBoxProps {
   position: { x: number; y: number };

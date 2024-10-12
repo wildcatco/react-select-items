@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { SelectContext } from './SelectContext';
+import { SelectContext } from '../contexts/SelectContext';
 
 export default function useSelectStore() {
   const context = useContext(SelectContext);

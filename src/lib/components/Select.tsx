@@ -1,9 +1,9 @@
 import { PropsWithChildren, useEffect, useRef } from 'react';
 import DragBox from './DragBox';
-import useDragSelect from './useDragSelect';
-import useSelect from './useSelect';
-import useSelectStore from './useSelectStore';
-import { SelectionOptions } from './types';
+import useDragSelect from '../hooks/useDragSelect';
+import useSelect from '../hooks/useSelect';
+import useSelectStore from '../hooks/useSelectStore';
+import { SelectionOptions } from '../types/selectionOptions';
 
 export interface SelectProps extends PropsWithChildren {
   onSelect: (index: number) => void;

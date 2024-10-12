@@ -1,7 +1,7 @@
 import { PropsWithChildren, useMemo } from 'react';
 import { create } from 'zustand';
-import { SelectionOptions } from './types';
-import { SelectStore, SelectContext } from './SelectContext';
+import { SelectionOptions } from '../types/selectionOptions';
+import { SelectStore, SelectContext } from '../contexts/SelectContext';
 
 export default function SelectProvider({ children }: PropsWithChildren) {
   const useSelectStore = useMemo(

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { SelectionOptions } from './types';
+import { SelectionOptions } from '../types/selectionOptions';
 
 export interface SelectStore {
   selectedIndexes: Set<number>;

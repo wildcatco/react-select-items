@@ -1,8 +1,8 @@
 import { expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SelectArea from '../SelectArea';
-import Selectable from '../Selectable';
+import SelectArea from '../components/SelectArea';
+import Selectable from '../components/Selectable';
 
 it('basic selection with click', () => {
   const onSelect = vi.fn();

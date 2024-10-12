@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useRef } from 'react';
-import useSelect from './useSelect';
-import useSelectStore from './useSelectStore';
+import useSelect from '../hooks/useSelect';
+import useSelectStore from '../hooks/useSelectStore';
 
 interface SelectableProps extends PropsWithChildren {
   index: number;
