@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelectStore } from './useSelectStore';
+import useSelectStore from './useSelectStore';
 
 export default function useDragSelect({ useShift }: { useShift: boolean }) {
   const mouseDownPointRef = useRef<{ x: number; y: number } | null>(null);

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useSelectStore } from './useSelectStore';
+import useSelectStore from './useSelectStore';
 
 export default function useSelect() {
   const { selectedIndexes, setSelectedIndexes } = useSelectStore();

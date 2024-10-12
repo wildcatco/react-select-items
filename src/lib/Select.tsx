@@ -2,7 +2,7 @@ import { PropsWithChildren, useEffect, useRef } from 'react';
 import DragBox from './DragBox';
 import useDragSelect from './useDragSelect';
 import useSelect from './useSelect';
-import { useSelectStore } from './useSelectStore';
+import useSelectStore from './useSelectStore';
 import { SelectionOptions } from './types';
 
 export interface SelectProps extends PropsWithChildren {

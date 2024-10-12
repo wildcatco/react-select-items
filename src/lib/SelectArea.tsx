@@ -1,5 +1,5 @@
 import Select, { SelectProps } from './Select';
-import { SelectProvider } from './useSelectStore';
+import SelectProvider from './SelectProvider';
 
 export default function SelectArea({ children, ...props }: SelectProps) {
   return (
