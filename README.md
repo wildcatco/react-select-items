@@ -64,21 +64,56 @@ function App() {
 export default App;
 ```
 
+## Customizing Styles
+
+### Changing Drag Box Style
+
+You can customize the style of the drag box using CSS classes. The default class name is 'react-select-items-drag-box'. You can change the class name using the `dragBoxClassName` prop.
+
+Example:
+
+```tsx
+import React from 'react';
+import { SelectArea, Selectable } from 'react-select-items';
+import './custom-styles.css';
+
+function App() {
+  return (
+    <SelectArea dragBoxClassName='custom-drag-box'>
+      {/* Selectable items */}
+    </SelectArea>
+  );
+}
+```
+
+And in your CSS file:
+
+```css
+.custom-drag-box {
+  border: 2px dashed blue !important;
+  background-color: rgba(0, 0, 255, 0.1) !important;
+  opacity: 0.5 !important;
+}
+```
+
+Note: Use the `!important` rule to ensure your styles are applied.
+
 ## API
 
 ### SelectArea
 
-| Prop                     | Type                      | Description                                                    | Default Value | Required |
-| ------------------------ | ------------------------- | -------------------------------------------------------------- | ------------- | -------- |
-| `onSelect`               | `(index: number) => void` | Callback function called when an item is selected              | -             | No       |
-| `onUnselect`             | `(index: number) => void` | Callback function called when an item is unselected            | -             | No       |
-| `onFocus`                | `(index: number) => void` | Callback function called when an item is clicked               | -             | No       |
-| `options`                | `object`                  | Selection options object with properties listed below          | -             | No       |
-| `options.useCtrl`        | `boolean`                 | Allows using Ctrl + click for toggle selection                 | true          | No       |
-| `options.useShift`       | `boolean`                 | Allows using Shift + click for range selection                 | true          | No       |
-| `options.useCtrlShift`   | `boolean`                 | Allows using Ctrl + Shift + click for multiple range selection | true          | No       |
-| `options.useDrag`        | `boolean`                 | Allows using mouse click and drag for box selection            | true          | No       |
-| `options.useShiftToDrag` | `boolean`                 | Requires holding Shift key for box selection                   | false         | No       |
+| Prop                     | Type                      | Description                                                    | Default Value                 | Required |
+| ------------------------ | ------------------------- | -------------------------------------------------------------- | ----------------------------- | -------- |
+| `onSelect`               | `(index: number) => void` | Callback function called when an item is selected              | -                             | No       |
+| `onUnselect`             | `(index: number) => void` | Callback function called when an item is unselected            | -                             | No       |
+| `onFocus`                | `(index: number) => void` | Callback function called when an item is clicked               | -                             | No       |
+| `options`                | `object`                  | Selection options object with properties listed below          | -                             | No       |
+| `options.useCtrl`        | `boolean`                 | Allows using Ctrl + click for toggle selection                 | true                          | No       |
+| `options.useShift`       | `boolean`                 | Allows using Shift + click for range selection                 | true                          | No       |
+| `options.useCtrlShift`   | `boolean`                 | Allows using Ctrl + Shift + click for multiple range selection | true                          | No       |
+| `options.useDrag`        | `boolean`                 | Allows using mouse click and drag for box selection            | true                          | No       |
+| `options.useShiftToDrag` | `boolean`                 | Requires holding Shift key for box selection                   | false                         | No       |
+| `dragBoxClassName`       | `string`                  | CSS class name for the drag box                                | 'react-select-items-drag-box' | No       |
 
 ### Selectable
 
