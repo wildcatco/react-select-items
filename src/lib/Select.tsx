@@ -10,6 +10,7 @@ interface SelectProps {
   onUnselect: (index: number) => void;
   onFocus: (index: number) => void;
   options?: SelectionOptions;
+  dragBoxClassName?: string;
   children: React.ReactNode;
 }
 
@@ -18,6 +19,7 @@ export default function Select({
   onUnselect,
   onFocus,
   options,
+  dragBoxClassName,
   children,
 }: SelectProps) {
   const {
@@ -97,6 +99,7 @@ export default function Select({
         <DragBox
           position={{ x: dragBoxPosition.x, y: dragBoxPosition.y }}
           size={{ width: dragBoxSize.width, height: dragBoxSize.height }}
+          className={dragBoxClassName}
         />
       )}
       {children}

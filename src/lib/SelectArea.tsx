@@ -7,6 +7,7 @@ type SelectAreaProps = {
   onUnselect?: (index: number) => void;
   onFocus?: (index: number) => void;
   options?: SelectionOptions;
+  dragBoxClassName?: string;
   children: React.ReactNode;
 };
 
@@ -15,6 +16,7 @@ export default function SelectArea({
   onUnselect = () => {},
   onFocus = () => {},
   options,
+  dragBoxClassName,
   children,
 }: SelectAreaProps) {
   return (
@@ -24,6 +26,7 @@ export default function SelectArea({
         onUnselect={onUnselect}
         onFocus={onFocus}
         options={options}
+        dragBoxClassName={dragBoxClassName}
       >
         {children}
       </Select>
