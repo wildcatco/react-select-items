@@ -1,23 +1,22 @@
-import { useEffect, useRef } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 import DragBox from './DragBox';
 import useDragSelect from './useDragSelect';
 import useSelect from './useSelect';
 import { useSelectStore } from './useSelectStore';
 import { SelectionOptions } from './types';
 
-interface SelectProps {
+export interface SelectProps extends PropsWithChildren {
   onSelect: (index: number) => void;
   onUnselect: (index: number) => void;
   onFocus: (index: number) => void;
   options?: SelectionOptions;
   dragBoxClassName?: string;
-  children: React.ReactNode;
 }
 
 export default function Select({
-  onSelect,
-  onUnselect,
-  onFocus,
+  onSelect = () => {},
+  onUnselect = () => {},
+  onFocus = () => {},
   options,
   dragBoxClassName,
   children,

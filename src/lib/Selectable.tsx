@@ -1,10 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 import useSelect from './useSelect';
 import { useSelectStore } from './useSelectStore';
 
-interface SelectableProps {
+interface SelectableProps extends PropsWithChildren {
   index: number;
-  children: React.ReactNode;
 }
 
 export default function Selectable({ index, children }: SelectableProps) {

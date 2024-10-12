@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from 'react';
+import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 import { create } from 'zustand';
 import { SelectionOptions } from './types';
 
@@ -17,7 +17,7 @@ interface SelectStore {
 
 const SelectContext = createContext<SelectStore | null>(null);
 
-const SelectProvider = ({ children }: { children: React.ReactNode }) => {
+const SelectProvider = ({ children }: PropsWithChildren) => {
   const useSelectStore = useMemo(
     () =>
       create<SelectStore>((set) => ({
