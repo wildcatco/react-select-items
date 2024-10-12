@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { SelectContext } from '../contexts/SelectContext';
+import { SelectStoreContext } from '../contexts/SelectStoreContext';
 
 export default function useSelectStore() {
-  const context = useContext(SelectContext);
+  const context = useContext(SelectStoreContext);
   if (!context) {
     throw new Error('useSelectStore must be used within a SelectProvider');
   }

@@ -1,17 +1,15 @@
 import { PropsWithChildren, useMemo } from 'react';
 import { create } from 'zustand';
 import { SelectionOptions } from '../types/selectionOptions';
-import { SelectStore, SelectContext } from '../contexts/SelectContext';
+import { SelectStoreContext } from '../contexts/SelectStoreContext';
+import { SelectStore } from '../types/selectStore';
 
 export default function SelectProvider({ children }: PropsWithChildren) {
-  const useSelectStore = useMemo(
+  const useStore = useMemo(
     () =>
       create<SelectStore>((set) => ({
         selectedIndexes: new Set<number>(),
-        setSelectedIndexes: (indexes: Set<number>) =>
-          set({ selectedIndexes: indexes }),
         focusedIndex: 0,
-        setFocusedIndex: (index: number) => set({ focusedIndex: index }),
         selectionOptions: {
           useCtrl: true,
           useShift: true,
@@ -19,6 +17,9 @@ export default function SelectProvider({ children }: PropsWithChildren) {
           useDrag: true,
           useShiftToDrag: false,
         },
+        dragBoxElement: null,
+        isDragging: false,
+
         setSelectionOptions: (options: SelectionOptions) =>
           set((state) => ({
             selectionOptions: {
@@ -26,17 +27,46 @@ export default function SelectProvider({ children }: PropsWithChildren) {
               ...options,
             },
           })),
-        dragBoxElement: null,
         setDragBoxElement: (element) => set({ dragBoxElement: element }),
-        isDragging: false,
         setIsDragging: (isDragging) => set({ isDragging }),
+
+        selectOnlyOne: (index: number) =>
+          set({ selectedIndexes: new Set([index]) }),
+        select: (index: number) =>
+          set((state) => ({
+            selectedIndexes: new Set([...state.selectedIndexes, index]),
+          })),
+        unselect: (indexToRemove: number) =>
+          set((state) => ({
+            selectedIndexes: new Set(
+              [...state.selectedIndexes].filter(
+                (index) => index !== indexToRemove,
+              ),
+            ),
+          })),
+        selectRange: ({ startIndex, endIndex, append }) =>
+          set((state) => {
+            const indexesToSelect: Set<number> = append
+              ? new Set([...state.selectedIndexes])
+              : new Set();
+            for (let i = startIndex; i <= endIndex; i++) {
+              indexesToSelect.add(i);
+            }
+            return {
+              selectedIndexes: indexesToSelect,
+            };
+          }),
+        unselectAll: () => set({ selectedIndexes: new Set() }),
+        focus: (index: number) => set({ focusedIndex: index }),
       })),
     [],
   );
 
-  const store = useSelectStore();
+  const store = useStore();
 
   return (
-    <SelectContext.Provider value={store}>{children}</SelectContext.Provider>
+    <SelectStoreContext.Provider value={store}>
+      {children}
+    </SelectStoreContext.Provider>
   );
 }

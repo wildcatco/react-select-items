@@ -1,7 +1,6 @@
 import { PropsWithChildren, useEffect, useRef } from 'react';
 import DragBox from './DragBox';
 import useDragSelect from '../hooks/useDragSelect';
-import useSelect from '../hooks/useSelect';
 import useSelectStore from '../hooks/useSelectStore';
 import { SelectionOptions } from '../types/selectionOptions';
 
@@ -27,13 +26,13 @@ export default function Select({
     isDragging,
     setIsDragging,
     setSelectionOptions,
+    unselectAll,
   } = useSelectStore();
   const prevSelectedIndexesRef = useRef<Set<number>>(selectedIndexes);
   const { selectionOptions } = useSelectStore();
   const { wrapperRef, dragBoxPosition, dragBoxSize } = useDragSelect({
     useShift: selectionOptions.useShiftToDrag,
   });
-  const { unselectAll } = useSelect();
 
   useEffect(() => {
     if (options) {

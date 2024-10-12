@@ -1,5 +1,4 @@
 import { PropsWithChildren, useEffect, useRef } from 'react';
-import useSelect from '../hooks/useSelect';
 import useSelectStore from '../hooks/useSelectStore';
 
 interface SelectableProps extends PropsWithChildren {
@@ -7,14 +6,17 @@ interface SelectableProps extends PropsWithChildren {
 }
 
 export default function Selectable({ index, children }: SelectableProps) {
-  const { selectOnlyOne, select, unselect, selectRange } = useSelect();
   const {
     focusedIndex,
-    setFocusedIndex,
+    focus,
     selectionOptions,
     selectedIndexes,
     dragBoxElement,
     setIsDragging,
+    selectOnlyOne,
+    select,
+    unselect,
+    selectRange,
   } = useSelectStore();
   const { useCtrl, useShift, useCtrlShift } = selectionOptions;
   const ref = useRef<HTMLDivElement>(null);
@@ -23,7 +25,7 @@ export default function Selectable({ index, children }: SelectableProps) {
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(false);
-    setFocusedIndex(index);
+    focus(index);
 
     if (useCtrl && e.ctrlKey && !e.shiftKey) {
       if (isSelected) {
